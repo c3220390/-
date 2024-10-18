@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西濃かるた - メインページ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: #333;
+      position: relative; /* 追加: 背景画像のために相対位置 */
+    }
+
+     /* 背景画像の設定 */
+    .scrolling-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: contain; /* 画面全体をカバーする */
+      background-position: center; /* 画像の中央を基準に配置 */
+      z-index: -1; /* 背景をコンテンツの後ろに表示 */
+      filter: blur(3px) brightness(70%); /* ぼかしと暗くするフィルター */
+      animation: scrollBackground 30s linear infinite; /* 背景画像が20秒でスクロール */
+    }
+
+    /* 背景画像のスクロールアニメーション */
+    @keyframes slideBackground {
+      from {
+        background-position: 0 center;
+      }
+      to {
+        background-position: -100% center;
+      }
+    }
+
+    /* ヘッダーのスタイル */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      font-size: 24px;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+
+    /* コンテンツのスタイル */
+    body {
+      margin: 0;
+      padding-top: 60px;
+    }
+
+    .content {
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8); /* コンテンツの背景を半透明に */      
+      min-height: 1000px;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* 挨拶文のスタイル */
+    .greeting {
+      text-align: center;
+      padding: 10px;
+      background-color: rgba(244, 244, 244, 0.8); /* 挨拶文背景を半透明に */
+      margin: 20px 10%;
+      font-size: 18px;
+      color: #333;
+    }
+
+    /* タブのスタイル */
+    .tab {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(152, 251, 152, 0.8); /* タブの背景を半透明に */      padding: 10px 0;
+      margin: 0 10%;
+      padding: 10px 0;
+    }
+    
+    .tab button {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 16px;
+      transition: 0.3s;
+      font-size: 16px;
+      color: #333;
+      margin: 0 10px;
+    }
+    
+    .tab button:hover {
+      background-color: #76d976;
+    }
+    
+    .tab button.active {
+      background-color: #4caf50;
+      color: white;
+    }
+    
+    /* タブのコンテンツのスタイル */
+    .tab-content {
+      display: none;
+      padding: 20px;
+      text-align: center;
+      background-color: white;
+      min-height: 200px;
+      margin: 0 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      transition: opacity 1s ease; /* フェードアニメーションを追加 */
+    }
+    
+    .tab-content.active {
+      display: flex;
+      opacity: 1; /* フェードイン */
+    }
+
+    /* 左側の画像スタイル */
+    .tab-content img {
+      width: 40%;
+      height: auto;
+    }
+
+    /* 右側のテキストとボタンのスタイル */
+    .text-section {
+      width: 50%;
+      text-align: left;
+    }
+
+    .text-section h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .text-section p {
+      margin-bottom: 20px;
+    }
+
+    .text-section button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ff7f7f;
+      border: none;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .text-section button:hover {
+      background-color: #ff4f4f;
+    }
+
+    /* スマホ向けのレスポンシブデザイン */
+    @media (max-width: 768px) {
+      .scrolling-background {
+    background-size: cover;
+    height: 100vh;
+  }      
+      header {
+        font-size: 20px;
+      }
+
+      .greeting {
+        font-size: 16px;
+        margin: 20px 5%;
+      }
+
+      .tab {
+        margin: 0 5%;
+      }
+
+      .tab button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      .tab-content {
+        flex-direction: column;
+        margin: 0 5%;
+      }
+
+      .tab-content img {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+
+      .text-section {
+        width: 100%;
+        text-align: center;
+      }
+
+      .text-section button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 追加: 背景画像をスクロールさせる要素 -->
+  <div class="scrolling-background"></div>
+
+  <!-- 固定ヘッダー -->
+  <header>
+    西濃かるた
+  </header>
+
+  <!-- 挨拶文 -->
+  <div class="greeting">
+    <p>ようこそ！西濃かるたのサイトへ！<br>こちらでは、かるたの詳細について調べることができます！</p>
+  </div>
+
+  <!-- タブ -->
+  <div class="tab">
+    <button class="tablinks active" onclick="openTab(event, 'Tab1')">Tab 1</button>
+    <button class="tablinks" onclick="openTab(event, 'Tab2')">Tab 2</button>
+  </div>
+
+  <!-- Tab1 のコンテンツ -->
+  <div id="Tab1" class="tab-content active">
+    <img src="https://via.placeholder.com/300" alt="イメージ1">
+    <div class="text-section">
+      <h2>西濃地域地図</h2>
+      <p>かるたのスポットを地図と照らし合わせて探すことができます！</p>      <button onclick="window.location.href='map.html'">地図ページへ</button>
+    </div>
+  </div>
+
+  <!-- Tab2 のコンテンツ -->
+  <div id="Tab2" class="tab-content">
+    <img src="https://via.placeholder.com/300" alt="イメージ2">
+    <div class="text-section">
+      <h2>西濃かるた絵札</h2>
+      <p>気になったカードをもう一度一覧を見て探すことができます！</p>      <button onclick="window.location.href='cards.html'">絵札ページへ</button>
+    </div>
+  </div>
+
+  <script>
+    // ページ読み込み時、最初にタブ1のみを表示するように設定
+    window.onload = function() {
+      document.getElementById('Tab1').style.display = 'flex';
+      document.getElementById('Tab2').style.display = 'none';
+    }
+
+    // タブを切り替える関数
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+
+      // すべてのタブコンテンツを非表示に
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].style.opacity = 0; // フェードアウト
+      }
+
+      // すべてのタブリンクから "active" クラスを削除
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // 選択されたタブを表示して "active" クラスを追加
+      document.getElementById(tabName).style.display = "flex";
+      setTimeout(function() {
+        document.getElementById(tabName).style.opacity = 1; // フェードイン
+      }, 10); // フェードインの遅延を調整
+      evt.currentTarget.className += " active";
+    }
+
+    // 背景画像をランダムに選択
+    const images = [
+      'images/image1.png',
+      'images/image2.png',
+      'images/image3.png'
+    ];
+
+    // ランダムに画像を選択して背景に設定
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    document.querySelector('.scrolling-background').style.backgroundImage = `url(${randomImage})`;
+  </script>
+
+</body>
+</html>
